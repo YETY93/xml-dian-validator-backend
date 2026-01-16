@@ -167,6 +167,12 @@ Experiencia en facturación electrónica DIAN
 
 ---
 
+## 🌿 Flujo de desarrollo
+
+Este proyecto usa **GitFlow**. Ver [CONTRIBUTING.md](CONTRIBUTING.md) para detalles.
+
+---
+
 ## 📄 Licencia
 
 Proyecto en fase inicial – uso académico y demostrativo.
