@@ -1,0 +1,6 @@
+logging:
+  level:
+    root: INFO
+    com.yesidrangel.dian: DEBUG
+  file:
+    name: logs/xml-validator.log

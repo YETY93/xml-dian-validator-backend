@@ -9,34 +9,34 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Getter
-public enum DocumentTypePathEnum {
+public enum DianSchemaType {
 
-    INVOICE("xsd/maindoc/UBL-Invoice-2.1.xsd"),
-    CREDIT_NOTE("xsd/maindoc/UBL-CreditNote-2.1.xsd"),
-    DEBIT_NOTE("xsd/maindoc/UBL-DebitNote-2.1.xsd");
+	INVOICE("INVOICE", "xsd/factura/maindoc/UBL-Invoice-2.1.xsd"),
 
-    private final String xsdPath;
+	CREDIT_NOTE("CREDIT_NOTE", "xsd/factura/maindoc/UBL-CreditNote-2.1.xsd"),
 
-    DocumentTypePathEnum(String xsdPath) {
-        this.xsdPath = xsdPath;
-    }
+	DOCUMENTO_SOPORTE("DOCUMENTO_SOPORTE", "xsd/documento-soporte/maindoc/UBL-Invoice-2.1.xsd");
 
-    private static final Map<String, DocumentTypePathEnum> BY_NAME =
-            Arrays.stream(values())
-                    .collect(Collectors.toUnmodifiableMap(
-                            e -> e.name().toUpperCase(),
-                            Function.identity()
-                    ));
+	private final String code;
+	private final String xsdPath;
 
-    /**
-     * Busca un valor del enum por su nombre (case-sensitive).
-     * @param name Nombre del enum (ej. "INVOICE")
-     * @return Optional con el enum si se encuentra, vacío si no.
-     */
-    public static Optional<DocumentTypePathEnum> forName(String name) {
-        return Optional.ofNullable(
-                name == null ? null : BY_NAME.get(name.toUpperCase())
-        );
-    }
+	DianSchemaType(String code, String xsdPath) {
+		this.code = code;
+		this.xsdPath = xsdPath;
+	}
+
+	private static final Map<String, DianSchemaType> BY_NAME = Arrays.stream(values())
+			.collect(Collectors.toUnmodifiableMap(e -> e.name().toUpperCase(), Function.identity()));
+
+	/**
+	 * Busca un valor del enum por su nombre (case-sensitive).
+	 * 
+	 * @param name
+	 *            Nombre del enum (ej. "INVOICE")
+	 * @return Optional con el enum si se encuentra, vacío si no.
+	 */
+	public static Optional<DianSchemaType> forName(String name) {
+		return Optional.ofNullable(name == null ? null : BY_NAME.get(name.toUpperCase()));
+	}
 
 }

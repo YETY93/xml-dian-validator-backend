@@ -7,9 +7,9 @@
 	xmlns:ccts="urn:un:unece:uncefact:data:specification:CoreComponentTypeSchemaModule:2"
 	targetNamespace="dian:gov:co:facturaelectronica:Structures-2-1" elementFormDefault="qualified">
 	<import namespace="urn:oasis:names:specification:ubl:schema:xsd:UnqualifiedDataTypes-2"
-		schemaLocation="../common/UBL-UnqualifiedDataTypes-2.1.xsd"/>
+		schemaLocation="common/UBL-UnqualifiedDataTypes-2.1.xsd"/>
 	<import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
-		schemaLocation="../common/UBL-CommonAggregateComponents-2.1.xsd"/>
+		schemaLocation="common/UBL-CommonAggregateComponents-2.1.xsd"/>
 	<!-- ===== Element Declarations ===== -->
 	<element name="DianExtensions" type="sts:DianExtensionsType">
 		<annotation>

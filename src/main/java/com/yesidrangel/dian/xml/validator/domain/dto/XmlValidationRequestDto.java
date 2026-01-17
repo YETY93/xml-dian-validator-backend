@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-public class XmlValidationRequest {
+public class XmlValidationRequestDto {
 
-    private String xml;
-    private String documentType;
+	private String xml;
+	private String documentType;
 
 }
