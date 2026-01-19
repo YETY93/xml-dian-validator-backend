@@ -11,6 +11,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import com.yesidrangel.dian.xml.validator.domain.enums.DianSeverityLevel;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
@@ -34,15 +35,15 @@ public class XsdValidationUtil {
 			validator.setErrorHandler(new ErrorHandler() {
 				@Override
 				public void warning(SAXParseException e) {
-					errors.add(XmlValidationSeverityEnum.WARNING + " " + e.getMessage());
+					errors.add(DianSeverityLevel.WARNING.getLabel() + ": " + e.getMessage());
 				}
 				@Override
 				public void error(SAXParseException e) {
-					errors.add(XmlValidationSeverityEnum.ERROR + " " + e.getMessage());
+					errors.add(DianSeverityLevel.ERROR.getLabel() + ": " + e.getMessage());
 				}
 				@Override
 				public void fatalError(SAXParseException e) {
-					errors.add(XmlValidationSeverityEnum.FATAL + " " + e.getMessage());
+					errors.add(DianSeverityLevel.FATAL.getLabel() + ": " + e.getMessage());
 				}
 			});
 			validator.validate(new StreamSource(new StringReader(xml)));

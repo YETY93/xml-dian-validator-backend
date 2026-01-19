@@ -26,15 +26,14 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ApiResponseDto<Void> handleTechnicalException(TechnicalException ex) {
 		log.error("Error técnico inesperado", ex);
-		return ApiResponseFactory.error("TECHNICAL_ERROR", ResponseCodeEnum.INTERNAL_ERROR,
-				"Error interno del servidor");
+		return ApiResponseFactory.internalError("Error interno del servidor");
 	}
 
 	// Manejo de errores funcionales → 400 Bad Request
 	@ExceptionHandler(FunctionalException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ApiResponseDto<Void> handleFunctionalException(FunctionalException ex) {
-		return ApiResponseFactory.error("FUNCTIONAL_ERROR", ResponseCodeEnum.VALIDATION_ERROR, ex.getMessage());
+		return ApiResponseFactory.badRequest(ex.getMessage());
 	}
 
 }

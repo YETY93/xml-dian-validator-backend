@@ -53,3 +53,4 @@ application-*.properties
 !application-default.properties
 !application-default.yml
 
+/extract_java_files.sh

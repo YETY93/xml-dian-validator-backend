@@ -88,6 +88,12 @@ Use Lombok annotations to reduce boilerplate:
 - `@Getter/@Setter` for selective accessor generation
 - `@AllArgsConstructor/@NoArgsConstructor` as needed
 
+**Lombok Configuration**:
+- Version: 1.18.30 (compile), 1.18.38 (annotation processor)
+- Scope: `provided` (not included in JAR)
+- Annotation processing enabled in Maven compiler plugin
+- Requires IDE annotation processing enabled
+
 ### Project Structure
 ```
 com.yesidrangel.dian.xml.validator
@@ -204,6 +210,20 @@ public record ValidationRequest(
 - Set Java 17 as project SDK
 - Enable annotation processing for Lombok
 
+## Git Configuration
+
+### GitIgnore Patterns
+- Build artifacts: `target/`, `*.class`, `*.jar`
+- IDE files: `.idea/`, `.settings/`, `.project`, `.classpath`
+- Logs: `*.log`, `logs/`
+- Local files: `WARP.md`, `HELP.mdtodos`, `HELP.md`
+- Application config: `application-local.*`
+
+### Git Workflow
+- **Never push** without explicit authorization
+- Always run tests before committing
+- Use `git status` to review changes before staging
+
 ## Additional Notes
 
 - Spring Boot 3.5.9 application
@@ -211,3 +231,27 @@ public record ValidationRequest(
 - Jakarta XML Validation for XSD schema validation
 - Target DIAN UBL 2.1 XML documents
 - Factory pattern for API responses: `ApiResponseFactory.success()`, `ApiResponseFactory.error()`
+- XSD schemas located in `src/main/resources/xsd/` (factura, documento-soporte, nomina)
+
+## Project Statistics
+
+**Current State**:
+- 17 Java source files (1 test, 16 main)
+- 3 REST endpoints (health, xml validation)
+- 4 XSD schema types supported (INVOICE, CREDIT_NOTE, DOCUMENTO_SOPORTE)
+- Spotless configured for automatic code formatting
+
+**Packages Breakdown**:
+- controller: 2 classes
+- service: 1 interface + 1 implementation
+- domain.dto: 3 DTOs
+- domain.enums: 3 enums
+- exception: 3 exceptions + 1 global handler
+- infrastructure: 1 factory
+- util: 1 utility class
+
+## Known Issues
+
+- Lombok annotation processing may not work in all IDEs without proper configuration
+- Ensure annotation processing is enabled in IDE settings
+- Run `mvn clean compile` if Lombok-generated methods are not recognized

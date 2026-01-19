@@ -7,5 +7,6 @@ public class XmlValidationRequestDto {
 
 	private String xml;
 	private String documentType;
+	private String technicalKey;
 
 }

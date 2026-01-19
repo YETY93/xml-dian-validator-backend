@@ -15,7 +15,6 @@ import com.yesidrangel.dian.xml.validator.service.XmlValidationService;
 @RestController
 @RequestMapping("/api/xml")
 public class XmlValidationController {
-
 	public static final String XML_VALIDATION = "XML_VALIDATION";
 
 	private final XmlValidationService xmlService;
@@ -27,7 +26,11 @@ public class XmlValidationController {
 	@PostMapping("/validate")
 	public ResponseEntity<ApiResponseDto<XmlValidationResponseDto>> validate(
 			@RequestBody XmlValidationRequestDto request) {
+
 		XmlValidationResponseDto result = xmlService.validate(request);
-		return ResponseEntity.ok(ApiResponseFactory.success(XML_VALIDATION, result));
+
+		return ResponseEntity.ok(
+				ApiResponseFactory.success(XML_VALIDATION, result)
+		);
 	}
 }
