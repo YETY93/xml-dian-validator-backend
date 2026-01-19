@@ -1,4 +1,9 @@
+# Local development files
+WARP.md
+HELP.mdtodos
 HELP.md
+
+# Build
 target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -47,3 +52,5 @@ application-local.yml
 application-*.properties
 !application-default.properties
 !application-default.yml
+
+/extract_java_files.sh
