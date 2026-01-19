@@ -1,15 +1,16 @@
 package com.yesidrangel.dian.xml.validator.controller;
 
-import com.yesidrangel.dian.xml.validator.domain.dto.ApiResponseDto;
-import com.yesidrangel.dian.xml.validator.domain.dto.XmlValidationRequestDto;
-import com.yesidrangel.dian.xml.validator.domain.dto.XmlValidationResponseDto;
-import com.yesidrangel.dian.xml.validator.infrastructure.reponse.ApiResponseFactory;
-import com.yesidrangel.dian.xml.validator.service.XmlValidationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.yesidrangel.dian.xml.validator.domain.dto.ApiResponseDto;
+import com.yesidrangel.dian.xml.validator.domain.dto.XmlValidationRequestDto;
+import com.yesidrangel.dian.xml.validator.domain.dto.XmlValidationResponseDto;
+import com.yesidrangel.dian.xml.validator.infrastructure.reponse.ApiResponseFactory;
+import com.yesidrangel.dian.xml.validator.service.XmlValidationService;
 
 @RestController
 @RequestMapping("/api/xml")

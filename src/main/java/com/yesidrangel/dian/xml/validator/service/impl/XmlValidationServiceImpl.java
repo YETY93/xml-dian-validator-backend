@@ -1,14 +1,16 @@
 package com.yesidrangel.dian.xml.validator.service.impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.yesidrangel.dian.xml.validator.domain.dto.XmlValidationRequestDto;
 import com.yesidrangel.dian.xml.validator.domain.dto.XmlValidationResponseDto;
 import com.yesidrangel.dian.xml.validator.domain.enums.DianSchemaType;
 import com.yesidrangel.dian.xml.validator.service.XmlValidationService;
 import com.yesidrangel.dian.xml.validator.util.XsdValidationUtil;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j

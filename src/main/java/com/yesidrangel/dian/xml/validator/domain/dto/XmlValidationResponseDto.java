@@ -1,8 +1,8 @@
 package com.yesidrangel.dian.xml.validator.domain.dto;
 
-import lombok.Data;
-
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class XmlValidationResponseDto {

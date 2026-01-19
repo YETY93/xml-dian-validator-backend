@@ -1,18 +1,20 @@
 package com.yesidrangel.dian.xml.validator.util;
 
-import com.yesidrangel.dian.xml.validator.domain.enums.XmlValidationSeverityEnum;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXParseException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXParseException;
+
+import com.yesidrangel.dian.xml.validator.domain.enums.XmlValidationSeverityEnum;
 
 public class XsdValidationUtil {
 

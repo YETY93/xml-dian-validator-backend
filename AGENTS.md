@@ -34,6 +34,21 @@ mvn test -Dtest=XmlValidatorApplicationTests#contextLoads
 mvn test -X
 ```
 
+## Code Formatting
+
+```bash
+# Check code formatting (fails if not formatted)
+mvn spotless:check
+
+# Apply code formatting automatically
+mvn spotless:apply
+
+# Format and check in one command
+mvn spotless:apply && mvn spotless:check
+```
+
+**Note**: Spotless runs automatically during `mvn clean install` (verify phase)
+
 ## Code Style Guidelines
 
 ### Java Conventions
@@ -45,26 +60,33 @@ mvn test -X
 ### Naming Conventions
 - **Classes**: PascalCase (e.g., `XmlValidatorApplication`, `HealthController`)
 - **Methods/Variables**: camelCase (e.g., `validateXml()`, `documentType`)
-- **Constants**: UPPER_SNAKE_CASE (e.g., `MAX_FILE_SIZE`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `XSD_NO_ENCONTRADO`)
 - **Packages**: lowercase (e.g., `com.yesidrangel.dian.xml.validator.controller`)
 - **Test Classes**: `<ClassName>Tests` suffix (e.g., `HealthControllerTests`)
+- **Enums**: PascalCase singular (e.g., `DianSchemaType`, `ResponseCodeEnum`)
 
 ### Import Organization
 ```java
-// Standard Java imports
+// Standard Java imports (java.*)
+import java.io.InputStream;
 import java.util.List;
-import java.util.Optional;
 
-// Spring Framework imports
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-// JUnit imports
-import org.junit.jupiter.api.Test;
+// Third-party imports (org.*, com.*)
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 // Blank line between import groups
 // Alphabetical order within each group
+// No wildcard imports (avoid import java.util.*)
 ```
+
+### Lombok Usage
+Use Lombok annotations to reduce boilerplate:
+- `@Data` for DTOs with getters/setters/equals/hashCode/toString
+- `@Builder` for DTOs with builder pattern
+- `@Slf4j` for logging (preferred over manual logger creation)
+- `@Getter/@Setter` for selective accessor generation
+- `@AllArgsConstructor/@NoArgsConstructor` as needed
 
 ### Project Structure
 ```
@@ -73,25 +95,45 @@ com.yesidrangel.dian.xml.validator
 ├── service           # Business logic interfaces
 │   └── impl          # Implementations
 ├── domain
-│   └── dto           # Request/Response DTOs
-├── util              # Utility classes
+│   ├── dto           # Request/Response DTOs (@Data, @Builder)
+│   └── enums         # Enumerations with Optional lookup methods
+├── infrastructure    # Cross-cutting concerns (factories)
+├── util              # Static utility classes
 ├── exception         # Custom exceptions & handlers
 └── XmlValidatorApplication.java
 ```
 
 ### Class Structure
 1. Package declaration
-2. Imports
-3. Annotations (@RestController, @Service, etc.)
+2. Imports (organized as above)
+3. Class-level annotations (@RestController, @Service, @Slf4j, etc.)
 4. Class declaration
-5. Constants
-6. Fields
-7. Constructors
+5. Static constants (UPPER_SNAKE_CASE)
+6. Instance fields (private final injected dependencies first)
+7. Constructor (dependency injection)
 8. Public methods
 9. Private methods
 
+### Service Layer Pattern
+- Define interfaces in `service` package
+- Implement in `service.impl` package with `@Service`
+- Use constructor injection exclusively (no @Autowired on fields)
+- Add `@Slf4j` for logging business operations
+
 ### DTOs and Records
-Prefer Java records for immutable DTOs:
+Prefer Lombok `@Data` + `@Builder` for mutable DTOs:
+```java
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class XmlValidationRequestDto {
+    private String xml;
+    private String documentType;
+}
+```
+
+Use Java records for immutable DTOs when possible:
 ```java
 public record ValidationRequest(
     @NotBlank String xml,
@@ -100,16 +142,36 @@ public record ValidationRequest(
 ```
 
 ### Error Handling
-- Use `@ControllerAdvice` for global exception handling
-- Return consistent error responses with `valid: false` and `errors` array
-- Log exceptions with appropriate level (ERROR for failures, WARN for business logic issues)
-- Validate inputs with `@Valid` and Jakarta Validation annotations
+- Extend `RuntimeException` for custom exceptions
+- Use `TechnicalException` for system errors (HTTP 500)
+- Use `FunctionalException` for business logic errors (HTTP 400)
+- Handle globally with `@RestControllerAdvice` and `@ExceptionHandler`
+- Return `ApiResponseDto<T>` with consistent structure (success, status, code, data)
 
 ### REST API Patterns
-- Use `@RestController` for REST endpoints
-- Return `ResponseEntity<T>` for flexibility in status codes
-- Use proper HTTP status codes (200, 400, 500, etc.)
+- Use `@RestController` with `@RequestMapping` for base paths
+- Use specific mapping annotations (`@PostMapping`, `@GetMapping`)
+- Return `ResponseEntity<ApiResponseDto<T>>` for flexibility
+- Use `@RequestBody` with DTOs for request bodies
+- Use `@Valid` with Jakarta Validation annotations for input validation
 - Document endpoints with inline comments
+
+### Logging
+- Use `@Slf4j` annotation (lombok.extern.slf4j.Slf4j)
+- Levels: INFO for business operations, WARN for validation issues, ERROR for failures
+- Log meaningful context: `log.info("Validando documento {}", requestDto.getDocumentType())`
+
+### Utility Classes
+- Use `public final class` with private constructor
+- Define constants as `public static final`
+- Use `static` methods for stateless operations
+- Example: `XsdValidationUtil.validate(xml, xsdPath)`
+
+### Enum Patterns
+- Add static lookup methods returning `Optional<T>`
+- Use uppercase enum values with underscores
+- Include descriptive fields (code, xsdPath, etc.)
+- Example: `DianSchemaType.forName("INVOICE")`
 
 ### Testing
 - Write unit tests for service layer using JUnit 5
@@ -133,17 +195,19 @@ public record ValidationRequest(
 - **Branches**: `feature/description`, `hotfix/issue-description`
 - **PRs**: Require 1 approval for `main` and `develop`
 - **Tags**: Annotated tags for releases (`v1.0.0`)
+- Use `--no-ff` for merges to preserve history
 
 ## IDE Configuration
 
 - Project uses Maven wrapper (`mvnw`)
 - Import as Maven project in IntelliJ/Eclipse
 - Set Java 17 as project SDK
-- Enable annotation processing for Lombok (if added)
+- Enable annotation processing for Lombok
 
 ## Additional Notes
 
-- This is a Spring Boot 3.5.9 application
+- Spring Boot 3.5.9 application
 - Jakarta Validation for input validation
 - Jakarta XML Validation for XSD schema validation
 - Target DIAN UBL 2.1 XML documents
+- Factory pattern for API responses: `ApiResponseFactory.success()`, `ApiResponseFactory.error()`

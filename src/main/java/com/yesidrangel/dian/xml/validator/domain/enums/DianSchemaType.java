@@ -1,12 +1,12 @@
 package com.yesidrangel.dian.xml.validator.domain.enums;
 
-import lombok.Getter;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import lombok.Getter;
 
 @Getter
 public enum DianSchemaType {
