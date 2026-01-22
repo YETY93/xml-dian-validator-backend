@@ -1,12 +1,13 @@
 package com.yesidrangel.dian.xml.validator.util;
 
-import com.yesidrangel.dian.xml.validator.exception.TechnicalException;
+import java.io.StringReader;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.StringReader;
+import com.yesidrangel.dian.xml.validator.exception.TechnicalException;
 
 public class XmlParserUtil {
 

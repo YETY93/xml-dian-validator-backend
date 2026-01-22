@@ -1,8 +1,8 @@
 package com.yesidrangel.dian.xml.validator.service.semantic;
 
-import org.w3c.dom.Document;
-
 import java.util.List;
+
+import org.w3c.dom.Document;
 
 public interface DianSemanticValidator {
 

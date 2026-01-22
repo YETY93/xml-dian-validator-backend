@@ -11,11 +11,10 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import com.yesidrangel.dian.xml.validator.domain.enums.DianSeverityLevel;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
-import com.yesidrangel.dian.xml.validator.domain.enums.XmlValidationSeverityEnum;
+import com.yesidrangel.dian.xml.validator.domain.enums.DianSeverityLevel;
 
 public class XsdValidationUtil {
 
