@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "🔍 Running Spotless..."
+
+if ! command -v mvn >/dev/null 2>&1; then
+  echo "❌ Maven not found. Skipping Spotless."
+  exit 0
+fi
+
+mvn spotless:apply || exit 1
+
+git diff --quiet || {
+  echo "✏️ Code formatted. Please commit again."
+  exit 1
+}

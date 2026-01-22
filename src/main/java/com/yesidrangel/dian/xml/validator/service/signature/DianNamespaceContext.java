@@ -1,8 +1,9 @@
 package com.yesidrangel.dian.xml.validator.service.signature;
 
-import javax.xml.namespace.NamespaceContext;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.xml.namespace.NamespaceContext;
 
 public class DianNamespaceContext implements NamespaceContext {
 

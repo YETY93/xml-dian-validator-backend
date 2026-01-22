@@ -1,13 +1,13 @@
 package com.yesidrangel.dian.xml.validator.util;
 
-import com.yesidrangel.dian.xml.validator.service.signature.DianNamespaceContext;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+
+import com.yesidrangel.dian.xml.validator.service.signature.DianNamespaceContext;
 
 public class XmlXPathUtil {
     public static String getTag(Document doc, String expression) {

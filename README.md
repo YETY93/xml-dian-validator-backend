@@ -50,6 +50,21 @@ com.yesidrangel.dian.xmlvalidator
 
 ---
 
+## Git hooks
+
+This project uses Git hooks.
+
+### One-time setup
+git config core.hooksPath .githooks
+chmod +x .githooks/pre-commit
+
+### Requirements
+- Git
+- Maven
+- Bash (Git Bash on Windows)
+
+---
+
 ## 📦 Funcionalidades actuales
 
 ✔ API REST funcional

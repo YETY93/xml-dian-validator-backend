@@ -3,6 +3,7 @@ package com.yesidrangel.dian.xml.validator.domain.dto;
 import java.util.List;
 
 import com.yesidrangel.dian.xml.validator.domain.enums.DianSeverityLevel;
+
 import lombok.Data;
 
 @Data

@@ -1,19 +1,19 @@
 package com.yesidrangel.dian.xml.validator.service.impl;
 
-import com.yesidrangel.dian.xml.validator.service.semantic.DianSemanticValidator;
-import com.yesidrangel.dian.xml.validator.util.CufeGeneratorUtil;
-import com.yesidrangel.dian.xml.validator.util.DianTaxExtractorUtil;
-import com.yesidrangel.dian.xml.validator.util.XmlXPathUtil;
-import org.springframework.stereotype.Component;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.yesidrangel.dian.xml.validator.util.XmlXPathUtil.getTag;
+import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+
+import com.yesidrangel.dian.xml.validator.service.semantic.DianSemanticValidator;
+import com.yesidrangel.dian.xml.validator.util.CufeGeneratorUtil;
+import com.yesidrangel.dian.xml.validator.util.DianTaxExtractorUtil;
+import com.yesidrangel.dian.xml.validator.util.XmlXPathUtil;
 
 @Component
 public class DianSemanticValidatorImpl implements DianSemanticValidator {

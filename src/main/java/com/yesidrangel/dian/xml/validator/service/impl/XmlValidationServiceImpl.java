@@ -3,22 +3,22 @@ package com.yesidrangel.dian.xml.validator.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.yesidrangel.dian.xml.validator.domain.enums.DianSeverityLevel;
-import com.yesidrangel.dian.xml.validator.exception.FunctionalException;
-import com.yesidrangel.dian.xml.validator.service.semantic.DianSemanticValidator;
-import com.yesidrangel.dian.xml.validator.service.signature.XadesSignatureValidator;
-import com.yesidrangel.dian.xml.validator.util.XmlParserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
 
 import com.yesidrangel.dian.xml.validator.domain.dto.XmlValidationRequestDto;
 import com.yesidrangel.dian.xml.validator.domain.dto.XmlValidationResponseDto;
 import com.yesidrangel.dian.xml.validator.domain.enums.DianSchemaType;
+import com.yesidrangel.dian.xml.validator.domain.enums.DianSeverityLevel;
+import com.yesidrangel.dian.xml.validator.exception.FunctionalException;
 import com.yesidrangel.dian.xml.validator.service.XmlValidationService;
+import com.yesidrangel.dian.xml.validator.service.semantic.DianSemanticValidator;
+import com.yesidrangel.dian.xml.validator.service.signature.XadesSignatureValidator;
+import com.yesidrangel.dian.xml.validator.util.XmlParserUtil;
 import com.yesidrangel.dian.xml.validator.util.XsdValidationUtil;
 
 import lombok.extern.slf4j.Slf4j;
-import org.w3c.dom.Document;
 
 @Service
 @Slf4j
