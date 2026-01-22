@@ -26,9 +26,7 @@ public class XmlValidationController {
 	@PostMapping("/validate")
 	public ResponseEntity<ApiResponseDto<XmlValidationResponseDto>> validate(
 			@RequestBody XmlValidationRequestDto request) {
-
 		XmlValidationResponseDto result = xmlService.validate(request);
-
 		return ResponseEntity.ok(
 				ApiResponseFactory.success(XML_VALIDATION, result)
 		);
