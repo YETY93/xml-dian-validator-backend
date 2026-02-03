@@ -10,7 +10,7 @@ import lombok.Data;
 public class XmlValidationResponseDto {
 
 	private boolean valid;
-	private List<String> errors;
+	private List<ValidationErrorDto> errors;
 	private DianSeverityLevel maxSeverity;
 
 }

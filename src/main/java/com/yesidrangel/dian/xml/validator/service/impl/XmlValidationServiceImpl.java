@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 
+import com.yesidrangel.dian.xml.validator.domain.dto.ValidationErrorDto;
 import com.yesidrangel.dian.xml.validator.domain.dto.XmlValidationRequestDto;
 import com.yesidrangel.dian.xml.validator.domain.dto.XmlValidationResponseDto;
 import com.yesidrangel.dian.xml.validator.domain.enums.DianSchemaType;
@@ -42,15 +43,15 @@ public class XmlValidationServiceImpl implements XmlValidationService {
 		List<String> semanticErrors = semanticValidator.validate(xmlDocument, requestDto.getDocumentType(), requestDto.getTechnicalKey());
 		// 🔹 4. Validación errores certificado
 		List<String> signatureErrors = signatureValidator.validate(xmlDocument);
-		// 🔹 5. Combinar errores
-		List<String> allErrors = new ArrayList<>();
-		allErrors.addAll(xsdErrors);
-		allErrors.addAll(semanticErrors);
-		allErrors.addAll(signatureErrors);
+		// 🔹 5. Combinar errores y convertir a ValidationErrorDto
+		List<ValidationErrorDto> allErrors = new ArrayList<>();
+		allErrors.addAll(xsdErrors.stream().map(this::toErrorDto).toList());
+		allErrors.addAll(semanticErrors.stream().map(this::toErrorDto).toList());
+		allErrors.addAll(signatureErrors.stream().map(this::toErrorDto).toList());
 		if (!allErrors.isEmpty()) {
 			log.warn("Errores DIAN detectados: {}", allErrors);
 		}
-		// 🔹 5. Construir respuesta
+		// 🔹 6. Construir respuesta
 		XmlValidationResponseDto responseDto = new XmlValidationResponseDto();
 		responseDto.setValid(allErrors.isEmpty());
 		responseDto.setErrors(allErrors);
@@ -72,7 +73,14 @@ public class XmlValidationServiceImpl implements XmlValidationService {
 		}
 	}
 
-	private DianSeverityLevel detectSeverity(List<String> errors) {
+	private ValidationErrorDto toErrorDto(String message) {
+		ValidationErrorDto dto = new ValidationErrorDto();
+		dto.setMessage(message);
+		dto.setSeverity("ERROR");
+		return dto;
+	}
+
+	private DianSeverityLevel detectSeverity(List<ValidationErrorDto> errors) {
 		DianSeverityLevel[] levels = DianSeverityLevel.values();
 		for (int i = levels.length - 1; i >= 0; i--) {
 			DianSeverityLevel level = levels[i];
@@ -80,7 +88,7 @@ public class XmlValidationServiceImpl implements XmlValidationService {
 				continue;
 			}
 			boolean found = errors.stream()
-					.anyMatch(e -> e.startsWith(level.getLabel()));
+					.anyMatch(e -> e.getMessage().startsWith(level.getLabel()));
 			if (found) {
 				return level;
 			}
